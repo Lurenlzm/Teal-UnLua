@@ -352,7 +352,7 @@ namespace UnLua
 #if WITH_EDITOR
     void FExportedEnum::GenerateIntelliSense(FString &Buffer) const
     {
-        Buffer = FString::Printf(TEXT("---@class %s\r\n"), *Name);
+        Buffer += FString::Printf(TEXT("---@class %s\r\n"), *Name);
 
         for (TMap<FString, int32>::TConstIterator It(NameValues); It; ++It)
         {

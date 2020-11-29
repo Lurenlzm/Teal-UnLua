@@ -12,13 +12,13 @@
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. 
 // See the License for the specific language governing permissions and limitations under the License.
 
-using UnrealBuildTool;public class TPSProject : ModuleRules{        public TPSProject(ReadOnlyTargetRules Target) : base(Target)    {        PCHUsage = PCHUsageMode.UseExplicitOrSharedPCHs;
+#pragma once
 
-        PublicDependencyModuleNames.AddRange(            new string[]            {
-                "Core",
-                "CoreUObject",
-                "Engine",
-                "InputCore",
-                "UnLua",
-                "Lua"
-            }            );    }}
+#include "Styling/SlateStyle.h"
+
+class FUnLuaEditorStyle : public FSlateStyleSet
+{
+public:
+    FUnLuaEditorStyle();
+    ~FUnLuaEditorStyle();
+};

@@ -12,13 +12,14 @@
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. 
 // See the License for the specific language governing permissions and limitations under the License.
 
-using UnrealBuildTool;public class TPSProject : ModuleRules{        public TPSProject(ReadOnlyTargetRules Target) : base(Target)    {        PCHUsage = PCHUsageMode.UseExplicitOrSharedPCHs;
+#include "UnLuaEditorCommands.h"
 
-        PublicDependencyModuleNames.AddRange(            new string[]            {
-                "Core",
-                "CoreUObject",
-                "Engine",
-                "InputCore",
-                "UnLua",
-                "Lua"
-            }            );    }}
+#define LOCTEXT_NAMESPACE "FUnLuaEditorCommands"
+
+void FUnLuaEditorCommands::RegisterCommands()
+{
+    UI_COMMAND(CreateLuaTemplate, "Lua Template", "Create lua template file", EUserInterfaceActionType::Button, FInputChord());
+    UI_COMMAND(HotfixLua, "Lua Hotfix", "Hotfix lua", EUserInterfaceActionType::Button, FInputChord(TEXT("L"), false, true, false, false));
+}
+
+#undef LOCTEXT_NAMESPACE

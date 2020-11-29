@@ -12,78 +12,68 @@
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. 
 // See the License for the specific language governing permissions and limitations under the License.
 
-using System.IO;
 using UnrealBuildTool;
+using System.IO;
 
-public class UnLua : ModuleRules
+public class TealUnLuaEditor : ModuleRules
 {
-    public UnLua(ReadOnlyTargetRules Target) : base(Target)
+    public TealUnLuaEditor(ReadOnlyTargetRules Target) : base(Target)
     {
         bEnforceIWYU = false;
 
         PCHUsage = ModuleRules.PCHUsageMode.UseExplicitOrSharedPCHs;
-
+        
         PublicIncludePaths.AddRange(
             new string[] {
             }
             );
                 
         
+        string EngineDir = Path.GetFullPath(Target.RelativeEnginePath);
         PrivateIncludePaths.AddRange(
             new string[] {
+                "TealUnLuaEditor/Private",
                 "UnLua/Private",
+                Path.Combine(EngineDir, @"Source/Editor/AnimationBlueprintEditor/Private"),
             }
             );
 
 
-        PublicIncludePathModuleNames.AddRange(
-            new string[] {
-                "ApplicationCore",
+        PrivateIncludePathModuleNames.AddRange(
+            new string[]
+            {
+                "Kismet",
+                "MainFrame",
+                "AnimationBlueprintEditor",
+                "Persona",
             }
-        );
+            );
 
-
+        
         PrivateDependencyModuleNames.AddRange(
             new string[]
             {
                 "Core",
                 "CoreUObject",
                 "Engine",
-                "Slate",
-                "InputCore",
+                "UnrealEd",
                 "Projects",
-                "Lua",
+                "InputCore",
+                "UMG",
+                "Slate",
+                "SlateCore",
+                "UnLua"
             }
             );
 
-        PublicDependencyModuleNames.AddRange(
+
+        DynamicallyLoadedModuleNames.AddRange(
             new string[]
             {
-                "Lua"
+                "Kismet",
+                "MainFrame",
+                "AnimationBlueprintEditor",
             }
             );
-
-        if (Target.bBuildEditor == true)
-        {
-            PrivateDependencyModuleNames.Add("UnrealEd");
-        }
-
-        bool bAutoStartup = true;
-        if (bAutoStartup)
-        {
-            PublicDefinitions.Add("AUTO_UNLUA_STARTUP=1");
-        }
-
-        bool bWithUE4Namespace = false;
-        if (bWithUE4Namespace)
-        {
-            PublicDefinitions.Add("WITH_UE4_NAMESPACE=1");
-        }
-
-        bool bSupportsRpcCall = false;
-        if (bSupportsRpcCall)
-        {
-            PublicDefinitions.Add("SUPPORTS_RPC_CALL=1");
-        }
     }
 }

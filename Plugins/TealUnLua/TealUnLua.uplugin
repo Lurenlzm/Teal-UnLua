@@ -25,6 +25,17 @@
       "Name": "UnLuaDefaultParamCollector",
       "Type": "Program",
       "LoadingPhase": "PostConfigInit"
+    },
+    {
+      "Name": "TealUnLuaEditor",
+      "Type": "Editor",
+      "LoadingPhase": "Default",
+      "WhitelistPlatforms": [ "Win64", "Mac" ]
+    },
+    {
+      "Name": "TealUnLuaIntelliSense",
+      "Type": "Program",
+      "LoadingPhase": "PostConfigInit"
     }
   ]
 }

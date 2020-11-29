@@ -150,7 +150,7 @@ void FLuaContext::CreateState()
             FString PlatformName(TEXT("Mac"));
             FString LibName(TEXT("liblua.dylib"));
 #endif
-            FString LibPath = FString::Printf(TEXT("%s/Source/ThirdParty/Lua/binaries/%s/%s"), *IPluginManager::Get().FindPlugin(TEXT("UnLua"))->GetBaseDir(), *PlatformName, *LibName);
+            FString LibPath = FString::Printf(TEXT("%s/Source/ThirdParty/Lua/binaries/%s/%s"), *IPluginManager::Get().FindPlugin(TEXT("TealUnLua"))->GetBaseDir(), *PlatformName, *LibName);
             if (FPaths::FileExists(LibPath))
             {
                 LuaHandle = FPlatformProcess::GetDllHandle(*LibPath);
@@ -224,6 +224,12 @@ void FLuaContext::CreateState()
         FString LuaSrcPath = GLuaSrcFullPath + TEXT("?.lua");
         AddPackagePath(L, TCHAR_TO_UTF8(*LuaSrcPath));
 
+        FString LuaThirdPartyPath = FPaths::ProjectPluginsDir() / TEXT("TealUnLua/Content/ThirdParty/?.lua");
+		AddPackagePath(L, TCHAR_TO_UTF8(*LuaThirdPartyPath));
+
+
+        ensureMsgf(luaL_dostring(L, "local tl = require('tl'); tl.loader()") == 0, TEXT("加载 Teal 错误"));
+		
         FUnLuaDelegates::OnPreStaticallyExport.Broadcast();
 
         RegisterClass(L, "UClass", "UObject");                      // register base class

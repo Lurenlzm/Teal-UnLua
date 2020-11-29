@@ -12,13 +12,20 @@
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. 
 // See the License for the specific language governing permissions and limitations under the License.
 
-using UnrealBuildTool;public class TPSProject : ModuleRules{        public TPSProject(ReadOnlyTargetRules Target) : base(Target)    {        PCHUsage = PCHUsageMode.UseExplicitOrSharedPCHs;
+#pragma once
 
-        PublicDependencyModuleNames.AddRange(            new string[]            {
-                "Core",
-                "CoreUObject",
-                "Engine",
-                "InputCore",
-                "UnLua",
-                "Lua"
-            }            );    }}
+#include "Framework/Commands/Commands.h"
+
+class FUnLuaEditorCommands : public TCommands<FUnLuaEditorCommands>
+{
+public:
+    FUnLuaEditorCommands()
+        : TCommands<FUnLuaEditorCommands>(TEXT("UnLuaEditor"), NSLOCTEXT("Contexts", "UnLuaEditor", "UnLua Editor"), NAME_None, "UnLuaEditorStyle")
+    {
+    }
+
+    virtual void RegisterCommands() override;
+
+    TSharedPtr<FUICommandInfo> CreateLuaTemplate;
+    TSharedPtr<FUICommandInfo> HotfixLua;
+};

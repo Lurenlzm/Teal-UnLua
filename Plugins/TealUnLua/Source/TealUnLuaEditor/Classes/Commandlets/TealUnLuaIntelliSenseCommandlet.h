@@ -12,13 +12,20 @@
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. 
 // See the License for the specific language governing permissions and limitations under the License.
 
-using UnrealBuildTool;public class TPSProject : ModuleRules{        public TPSProject(ReadOnlyTargetRules Target) : base(Target)    {        PCHUsage = PCHUsageMode.UseExplicitOrSharedPCHs;
+#include "Commandlets/Commandlet.h"
+#include "TealUnLuaIntelliSenseCommandlet.generated.h"
 
-        PublicDependencyModuleNames.AddRange(            new string[]            {
-                "Core",
-                "CoreUObject",
-                "Engine",
-                "InputCore",
-                "UnLua",
-                "Lua"
-            }            );    }}
+UCLASS()
+class UTealUnLuaIntelliSenseCommandlet : public UCommandlet
+{
+    GENERATED_UCLASS_BODY()
+
+public:
+    virtual int32 Main(const FString& Params) override;
+
+private:
+    void SaveFile(const FString &ModuleName, const FString &FileName, const FString &GeneratedFileContent);
+
+    class FLuaContext *Context;
+    FString IntermediateDir;
+};

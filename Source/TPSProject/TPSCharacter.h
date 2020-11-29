@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Character.h"
+#include "UnLuaEx.h"
 #include "TPSCharacter.generated.h"
 
 UCLASS()
@@ -27,3 +28,38 @@ public:
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 
 };
+
+
+struct Vec3
+{
+	Vec3() : x(0), y(0), z(0) {}
+	Vec3(float _x, float _y, float _z) : x(_x), y(_y), z(_z) {}
+
+	void Set(const Vec3& V) { *this = V; }
+	Vec3& Get() { return *this; }
+	void Get(Vec3& V) const { V = *this; }
+
+	bool operator==(const Vec3& V) const { return x == V.x && y == V.y && z == V.z; }
+
+	static Vec3 Cross(const Vec3& A, const Vec3& B) { return Vec3(A.y * B.z - A.z * B.y, A.z * B.x - A.x * B.z, A.x * B.y - A.y * B.x); }
+	static Vec3 Multiply(const Vec3& A, float B) { return Vec3(A.x * B, A.y * B, A.z * B); }
+	static Vec3 Multiply(const Vec3& A, const Vec3& B) { return Vec3(A.x * B.x, A.y * B.y, A.z * B.z); }
+
+	float x, y, z;
+};
+
+
+enum EHand
+{
+	LeftHand,
+	RightHand
+};
+
+
+
+enum class EEye
+{
+	LeftEye,
+	RightEye
+};
+
